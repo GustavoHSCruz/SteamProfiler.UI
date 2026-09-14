@@ -1,0 +1,21 @@
+{
+  "name": "@steamprofiler/ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "The components steamprofiler.org, the bench and Duo are drawn with: tokens, CSS classes and thin React wrappers.",
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "./check.sh",
+    "sync": "node sync.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "react": "19.3.0",
+    "typescript": "7.0.2"
+  }
+}

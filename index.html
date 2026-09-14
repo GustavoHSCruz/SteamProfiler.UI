@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SteamProfiler.UI</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+  /* The page itself, not the library: the workspace ground and the tiling. */
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: var(--gap);
+    background: var(--bg);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.022) 0 1px, transparent 1px 44px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.022) 0 1px, transparent 1px 44px);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .bench { display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+  .wide { grid-column: 1 / -1; }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: var(--gap); padding: 0 4px; height: 34px; }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .stack { display: grid; gap: 14px; align-content: start; }
+  .note { margin: 0; font-family: var(--mono); font-size: 10.5px; color: var(--faint); }
+  code { font-size: 11px; color: var(--dim); }
+  ul.plain { margin: 0; padding: 0; list-style: none; }
+  ul.plain li { border-bottom: 1px solid var(--line); }
+  ul.plain li:last-child { border-bottom: 0; }
+  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); }
+  .stats > * { padding: 12px 14px; background: var(--panel); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="sp-wordmark" href="#">steamprofiler<span>.ui</span></a>
+  <nav class="row">
+    <a class="sp-pill sp-pill--sm" href="#buttons" aria-current="page">componentes</a>
+    <a class="sp-pill sp-pill--sm" href="#tokens">tokens</a>
+    <a class="sp-pill sp-pill--sm" href="https://github.com/GustavoHSCruz/SteamProfiler.UI">github</a>
+  </nav>
+</header>
+
+<main class="bench">
+
+  <section class="sp-panel wide" id="find">
+    <div class="sp-panel-bar">
+      <h2 class="sp-panel-title"><span class="sp-dot"></span><span>perfil da steam</span></h2>
+      <div class="sp-seg" role="group" aria-label="Tipo de busca">
+        <button type="button" class="sp-seg-btn" aria-pressed="true">perfil</button>
+        <button type="button" class="sp-seg-btn" aria-pressed="false">jogo</button>
+      </div>
+    </div>
+    <div class="sp-panel-body stack" style="--sp-panel-pad: 22px">
+      <p class="sp-eyebrow">steam · qualquer perfil público</p>
+      <h1 class="sp-display">Sua biblioteca da Steam, desenhada em escala.</h1>
+      <p class="sp-lede">Digite um perfil da Steam. Eu leio a biblioteca pública e desenho o tempo: <b>um retângulo por jogo</b>, com área proporcional às horas.</p>
+      <div class="row" style="flex-wrap: nowrap">
+        <input class="sp-input sp-input--mono sp-input--lg" placeholder="gordziilla, 76561198086380973 ou a URL do perfil">
+        <button class="sp-btn sp-btn--primary sp-btn--lg">Consultar</button>
+      </div>
+      <p class="sp-hint">O perfil precisa ter <b>Detalhes do jogo</b> como público.</p>
+      <p class="sp-notice" data-tone="bad" role="alert">Esse perfil não existe ou a Steam não respondeu.</p>
+    </div>
+  </section>
+
+  <section class="sp-panel" id="buttons">
+    <div class="sp-panel-bar">
+      <h2 class="sp-panel-title"><span class="sp-dot"></span><span>botões</span></h2>
+      <a class="sp-panel-go" data-external href="#">docs</a>
+    </div>
+    <div class="sp-panel-body stack">
+      <div class="row">
+        <button class="sp-btn sp-btn--primary">Salvar</button>
+        <button class="sp-btn">Duplicar</button>
+        <button class="sp-btn sp-btn--quiet">Cancelar</button>
+        <button class="sp-btn sp-btn--danger">Excluir</button>
+      </div>
+      <div class="row">
+        <button class="sp-btn sp-btn--primary sp-btn--sm">Pequeno</button>
+        <button class="sp-btn sp-btn--sm">Pequeno</button>
+        <button class="sp-btn sp-btn--lg">Grande</button>
+        <button class="sp-btn" disabled>Ocupado</button>
+      </div>
+      <div class="row">
+        <button class="sp-btn sp-btn--quiet sp-btn--sm" aria-pressed="true">rev. 9</button>
+        <button class="sp-btn sp-btn--quiet sp-btn--sm" aria-pressed="false">rev. 8</button>
+        <button class="sp-btn sp-btn--text">limpar</button>
+      </div>
+      <p class="note"><code class="sp-mono">.sp-btn</code> <code class="sp-mono">--primary</code> <code class="sp-mono">--quiet</code> <code class="sp-mono">--danger</code> <code class="sp-mono">--text</code> <code class="sp-mono">--sm</code> <code class="sp-mono">--lg</code></p>
+    </div>
+  </section>
+
+  <section class="sp-panel">
+    <div class="sp-panel-bar">
+      <h2 class="sp-panel-title"><span class="sp-dot"></span><span>pills, chips, tags</span></h2>
+    </div>
+    <div class="sp-panel-body stack">
+      <div class="row">
+        <a class="sp-pill" href="#" aria-current="page">notícias</a>
+        <a class="sp-pill" href="#">as publishers</a>
+        <a class="sp-pill sp-pill--sm sp-pill--quiet" href="#">sobre</a>
+        <a class="sp-pill sp-pill--lg" href="#">abrir na Steam ↗</a>
+      </div>
+      <div class="row">
+        <button class="sp-chip" aria-pressed="true">Todos</button>
+        <button class="sp-chip" aria-pressed="false">Jogados</button>
+        <button class="sp-chip" aria-pressed="false">Nunca abertos</button>
+      </div>
+      <div class="row">
+        <span class="sp-tag">novo</span>
+        <span class="sp-tag" data-tone="accent">fazendo</span>
+        <span class="sp-tag" data-tone="good">feito</span>
+        <span class="sp-tag" data-tone="bad">bug</span>
+        <span class="sp-tag" data-tone="info">ideia</span>
+        <span class="sp-tag" data-tone="violet">recurso</span>
+        <span class="sp-tag" data-tone="muted">recusado</span>
+        <span class="sp-tag" data-tone="alert">reincidente</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sp-panel">
+    <div class="sp-panel-bar">
+      <h2 class="sp-panel-title"><span class="sp-dot"></span><span>formulário</span></h2>
+    </div>
+    <div class="sp-panel-body stack">
+      <div class="sp-field">
+        <label class="sp-label" for="f-name">nome <em>opcional</em></label>
+        <input class="sp-input" id="f-name" placeholder="Como te chamamos">
+      </div>
+      <div class="sp-field">
+        <label class="sp-label" for="f-kind">tipo</label>
+        <select class="sp-select" id="f-kind"><option>Ideia</option><option>Bug</option></select>
+      </div>
+      <div class="sp-field">
+        <label class="sp-label" for="f-msg">mensagem</label>
+        <textarea class="sp-textarea" id="f-msg" placeholder="O que aconteceu"></textarea>
+        <p class="sp-hint">Nada de dado pessoal: a mensagem fica pública.</p>
+      </div>
+      <p class="sp-notice" data-tone="good">Recebido. Aparece na lista quando for lido.</p>
+      <p class="sp-notice" data-tone="accent">Rascunho salvo neste navegador.</p>
+      <p class="sp-notice">Mensagens entram na fila uma de cada vez.</p>
+    </div>
+  </section>
+
+  <section class="sp-panel">
+    <div class="sp-panel-bar">
+      <h2 class="sp-panel-title"><span class="sp-dot"></span><span>o que ele sabe agora</span></h2>
+      <button class="sp-panel-go" type="button">atualizar</button>
+    </div>
+    <div class="sp-panel-body sp-panel-body--tight">
+      <div class="stats">
+        <div class="sp-stat"><p class="sp-stat-value">48.210</p><p class="sp-stat-label">jogos lidos por inteiro</p></div>
+        <div class="sp-stat"><p class="sp-stat-value">131.402</p><p class="sp-stat-label">apps no catálogo</p></div>
+        <div class="sp-stat sp-stat--display"><p class="sp-stat-value">157</p><p class="sp-stat-label">jogos com página própria</p></div>
+        <div class="sp-stat"><p class="sp-stat-value">2.917</p><p class="sp-stat-label">publishers e developers</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sp-panel">
+    <div class="sp-panel-bar">
+      <h2 class="sp-panel-title"><span class="sp-dot"></span><span>últimas da steam</span></h2>
+      <a class="sp-panel-go" href="#">news hub</a>
+    </div>
+    <div class="sp-panel-body sp-panel-body--tight">
+      <ul class="plain">
+        <li><a class="sp-row" href="#" data-on="1"><b>10 set</b>Promoção de Outono</a></li>
+        <li><a class="sp-row" href="#"><b>08 set</b>Atualização do cliente da Steam</a></li>
+        <li><a class="sp-row" href="#"><b>02 set</b>Festival de jogos de estratégia</a></li>
+        <li style="padding: 12px"><span class="sp-skeleton" style="width: 70%"></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sp-panel sp-panel--still" id="tokens">
+    <div class="sp-panel-bar">
+      <h2 class="sp-panel-title"><span class="sp-dot"></span><span>tokens</span></h2>
+    </div>
+    <div class="sp-panel-body stack">
+      <p class="note">--bg --panel --panel-2 --line --line-2 --text --dim --faint --accent --accent-d --on-accent --link --good --bad --info --violet --r --r-control --gap --display --sans --mono</p>
+      <p class="note">Uma página de jogo redefine esses nomes em :root e todo componente acompanha.</p>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>

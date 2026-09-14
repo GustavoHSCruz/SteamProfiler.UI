@@ -1,0 +1,58 @@
+/* ── Tokens ─────────────────────────────────────────────────────────────
+   The names are the ones the served site has used since the first stylesheet
+   and Duo copied: --bg, --panel, --accent. They are unprefixed on purpose. A
+   game page on steamprofiler.org restyles itself by redefining exactly these
+   variables, and a component that read --sp-accent instead would stay amber on
+   a page that has turned green.
+
+   The values are the bench's (next/), the newest cut: greys two or three steps
+   apart so a screen of hairlines does not turn into a wireframe. A front that
+   wants its own values declares :root after this file; nothing here is
+   !important and nothing here is layered. */
+
+:root {
+  color-scheme: dark;
+
+  --bg:       #08070c;
+  --panel:    #101017;
+  --panel-2:  #15151d;
+  --line:     #22212c;
+  --line-2:   #32313d;
+  --text:     #f1eff5;
+  --dim:      #948fa0;
+  --faint:    #5f5c6c;
+
+  /* One accent, and the ink that sits on it. */
+  --accent:   #ffb454;
+  --accent-d: #c97f22;
+  --on-accent:#16100a;
+  --link:     #9fb4ff;
+
+  /* Tones for tags and notices. Each is a border and a text colour; the fill
+     is the border at low alpha, mixed where it is used. */
+  --good:     #5ee08a;
+  --good-ink: #a8e8c0;
+  --bad:      #ff7a5c;
+  --bad-ink:  #ffb8a8;
+  --info:     #8fb4e0;
+  --violet:   #c79ae0;
+
+  /* The only gradient anywhere, and it is Hyprland's: the ring a panel wears
+     while it is pointed at. */
+  --focus-ring: linear-gradient(120deg, #33ccff, #a37bff 55%, #ff7ac4);
+
+  --r:         10px;   /* panel rounding */
+  --r-control: 8px;    /* buttons, inputs, notices */
+  --gap:       8px;    /* between tiled panels */
+
+  --display:    'Bricolage Grotesque', 'Archivo', system-ui, sans-serif;
+  --display-w:  800;
+  --display-ls: -0.04em;
+  --display-lh: 0.94;
+  --display-tt: none;
+  --sans:  'Archivo', system-ui, -apple-system, sans-serif;
+  --mono:  'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --label:    var(--mono);
+  --label-w:  500;
+  --label-ls: 0.16em;
+}
