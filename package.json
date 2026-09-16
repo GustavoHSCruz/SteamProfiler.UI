@@ -6,6 +6,7 @@
   "license": "MIT",
   "description": "The components steamprofiler.org, the bench and Duo are drawn with: tokens, CSS classes and thin React wrappers.",
   "scripts": {
+    "dev": "node serve.mjs",
     "build": "node build.mjs",
     "check": "./check.sh",
     "sync": "node sync.mjs"

@@ -16,7 +16,10 @@ const sources = [
 ];
 const used = new Set();
 for (const f of sources) {
-  const text = readFileSync(f, 'utf8');
+  const raw = readFileSync(f, 'utf8');
+  // HTML scripts also contain storage keys such as sp-lang and dictionaries;
+  // these are not component class names.
+  const text = f.endsWith('.html') ? raw.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '') : raw;
   for (const m of text.matchAll(/(?<![-\w])sp-[a-z0-9]+(?:-[a-z0-9]+)*(?:--[a-z0-9]+)?/g)) used.add(m[0]);
 }
 // Built from a variant name at runtime: sp-btn--${variant}, sp-pill--${size}.

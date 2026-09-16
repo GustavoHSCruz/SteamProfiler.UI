@@ -4,8 +4,32 @@ The components [steamprofiler.org](https://steamprofiler.org), the bench and
 [Duo](https://duo.steamprofiler.org) are drawn with: one set of tokens, one
 stylesheet of `sp-` classes, and thin React wrappers over those classes.
 
-Open `index.html` from disk to see every component. Nothing on it needs the
-network.
+Open `index.html` from disk to browse the documentation. It includes installation,
+tokens and a page for each component, with live previews, HTML/React examples,
+copy buttons and search (`Ctrl/Cmd K`). Nothing on it needs the network.
+
+Run `npm run dev` to serve the documentation on `0.0.0.0:5190`. Set `PORT` or
+`HOST` to change the address. Point the reverse proxy for
+`https://devs.steamprofiler.org` at `http://127.0.0.1:5190` (or this
+machine's address when the proxy runs elsewhere).
+
+The documentation shell is in `docs/index.template.html` and `css/docs.css`. It uses hash
+routes (for example `#/buttons`) so links work from disk and behind a static
+reverse proxy without route rewrites. The previews use the real library CSS.
+
+The root SteamProfiler application defines the visual standard for the ecosystem.
+The documentation header follows its 42px height, wordmark typography, compact
+controls and responsive horizontal padding. Update it against the root application
+when those measurements change.
+
+Documentation strings are authored in the sibling **SteamProfiler.i18n** repo,
+under `locales/ui/{en,pt,ru}.json`. Run `python3 build.py --consumer ui` there
+to generate this repo's `index.html`. The generated page includes every supported
+dictionary and works offline. English is the fallback; PT-BR and Russian must
+each cover 100% of the English keys, including code examples and accessible labels.
+Use the language picker or `?lang=en`, `?lang=pt-BR`, `?lang=ru`. The page
+remembers the choice in `sp-lang` and detects the browser language on a first visit.
+Chinese documentation is deferred until its dictionaries are added to i18n.
 
 ```
 css/tokens.css      --bg --panel --line --text --dim --accent ... the palette and the type
