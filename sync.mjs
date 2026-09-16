@@ -7,6 +7,7 @@
      next/src/ui-kit/{steamprofiler-ui.css,react/}  steamprofiler-front (the bench)
      src/ui-kit/{steamprofiler-ui.css,react/}       steamprofiler-duo-front
      admin/ui.css                                   steamprofiler-api (the owner panel)
+     ui.css                                         steamprofilersec-front (the security console)
 
    The consumers are looked for as siblings of this checkout. --check writes
    nothing and exits 1 when a copy is behind (ignoring the stamp line). */
@@ -28,6 +29,10 @@ const targets = [
   // public site does not load is not a file the public site should have to
   // carry for it.
   { repo: 'steamprofiler-api', css: 'admin/ui.css' },
+  // The security panel, which is a console built almost entirely out of these
+  // classes - the switch, the nav, the table and the meter exist because it
+  // needed them.
+  { repo: 'steamprofilersec-front', css: 'ui.css' },
 ];
 
 const reactHeader = () => `// ${stamp()}. Generated: edit github.com/GustavoHSCruz/SteamProfiler.UI, not this copy.\n`;

@@ -38,8 +38,10 @@ export function Textarea({ className, ...rest }: ComponentProps<'textarea'>) {
   return <textarea className={cx('sp-textarea', className)} {...rest} />;
 }
 
-export function Select({ className, ...rest }: ComponentProps<'select'>) {
-  return <select className={cx('sp-select', className)} {...rest} />;
+export type SelectProps = ComponentProps<'select'> & { /** The small round one a bar of pills holds. */ pill?: boolean };
+
+export function Select({ pill, className, ...rest }: SelectProps) {
+  return <select className={cx('sp-select', pill && 'sp-select--pill', className)} {...rest} />;
 }
 
 export function Hint({ className, ...rest }: ComponentProps<'p'>) {
