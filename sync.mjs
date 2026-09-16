@@ -6,6 +6,7 @@
      site/ui.css                                    steamprofiler-front (served, no build)
      next/src/ui-kit/{steamprofiler-ui.css,react/}  steamprofiler-front (the bench)
      src/ui-kit/{steamprofiler-ui.css,react/}       steamprofiler-duo-front
+     admin/ui.css                                   steamprofiler-api (the owner panel)
 
    The consumers are looked for as siblings of this checkout. --check writes
    nothing and exits 1 when a copy is behind (ignoring the stamp line). */
@@ -21,6 +22,12 @@ const targets = [
   { repo: 'steamprofiler-front', css: 'site/ui.css' },
   { repo: 'steamprofiler-front', css: 'next/src/ui-kit/steamprofiler-ui.css', react: 'next/src/ui-kit/react' },
   { repo: 'steamprofiler-duo-front', css: 'src/ui-kit/steamprofiler-ui.css', react: 'src/ui-kit/react' },
+  // The owner panel, which is the first thing on the static side to use these
+  // classes. It has its own copy rather than reading the front's: the panel is
+  // served by its own process out of a private repository, and a file the
+  // public site does not load is not a file the public site should have to
+  // carry for it.
+  { repo: 'steamprofiler-api', css: 'admin/ui.css' },
 ];
 
 const reactHeader = () => `// ${stamp()}. Generated: edit github.com/GustavoHSCruz/SteamProfiler.UI, not this copy.\n`;
